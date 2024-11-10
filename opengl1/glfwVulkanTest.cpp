@@ -14,14 +14,16 @@ using namespace std;
 class GLFWWindow {
 public:
     GLFWWindow(int width, int height) {
-        cout << "GLFW.init" << endl;
+        cout << "VulkanTest.GLFW.init" << endl;
         glfwInit();
         
-        cout << "GLFW.createWindow" << endl;
+        cout << "VulkanTest.GLFW.createWindow" << endl;
         createWindow(width,height);
         
-        cout << "Vulkan.createInstance" << endl;
+        cout << "VulkanTest.Vulkan.createInstance" << endl;
         createInstance();
+
+        cout << "VulkanTest.ready" << endl;
     }
     
     ~GLFWWindow(){

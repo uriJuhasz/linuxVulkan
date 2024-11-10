@@ -52,7 +52,7 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch). $(LibraryP
 AR       := /bin/ar rcu
 CXX      := /bin/clang++
 CC       := /bin/clang
-CXXFLAGS :=  -g -Wall -pedantic -std=c++23 -Wextra $(Preprocessors)
+CXXFLAGS :=  -g -Wall -pedantic -std=c++23 -Wextra -march=x86-64-v3 $(Preprocessors)
 CFLAGS   :=   $(Preprocessors)
 ASFLAGS  := 
 AS       := /bin/as
