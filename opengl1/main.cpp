@@ -8,6 +8,7 @@ using namespace std;
 int main() {
     cout << "Start" << endl;
     glfwOpenGLTest();
+    cout << endl << endl;
     glfwVulkanTest();
     cout << "End" << endl;
     char c;

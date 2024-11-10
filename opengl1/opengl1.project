@@ -3,6 +3,8 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="VulkanInstance.h"/>
+    <File Name="VulkanInstance.cpp"/>
     <File Name="glfwOpenGLTest.cpp"/>
     <File Name="glfwVulkanTest.h"/>
     <File Name="glfwVulkanTest.cpp"/>

@@ -62,7 +62,7 @@ AS       := /bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/glfwOpenGLTest.cpp$(ObjectSuffix) $(IntermediateDirectory)/glfwVulkanTest.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VulkanInstance.cpp$(ObjectSuffix) $(IntermediateDirectory)/glfwOpenGLTest.cpp$(ObjectSuffix) $(IntermediateDirectory)/glfwVulkanTest.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
 
 
 
@@ -93,6 +93,14 @@ PreBuild:
 ##
 ## Objects
 ##
+$(IntermediateDirectory)/VulkanInstance.cpp$(ObjectSuffix): VulkanInstance.cpp $(IntermediateDirectory)/VulkanInstance.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rootroot/Documents/ws1/opengl1/VulkanInstance.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VulkanInstance.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VulkanInstance.cpp$(DependSuffix): VulkanInstance.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VulkanInstance.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VulkanInstance.cpp$(DependSuffix) -MM VulkanInstance.cpp
+
+$(IntermediateDirectory)/VulkanInstance.cpp$(PreprocessSuffix): VulkanInstance.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VulkanInstance.cpp$(PreprocessSuffix) VulkanInstance.cpp
+
 $(IntermediateDirectory)/glfwOpenGLTest.cpp$(ObjectSuffix): glfwOpenGLTest.cpp $(IntermediateDirectory)/glfwOpenGLTest.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rootroot/Documents/ws1/opengl1/glfwOpenGLTest.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/glfwOpenGLTest.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/glfwOpenGLTest.cpp$(DependSuffix): glfwOpenGLTest.cpp
