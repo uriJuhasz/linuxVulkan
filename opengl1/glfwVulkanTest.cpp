@@ -49,7 +49,7 @@ private:
     
 private:
     void createInstance() {
-        instance = makeVulkanInstance();
+        instance = makeVulkanInstance(window);
     }
     
     unique_ptr<VulkanInstance> instance;
