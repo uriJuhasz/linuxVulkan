@@ -10,5 +10,7 @@ int main() {
     glfwOpenGLTest();
     glfwVulkanTest();
     cout << "End" << endl;
+    char c;
+    cin >>  c;
     return 0;
 }

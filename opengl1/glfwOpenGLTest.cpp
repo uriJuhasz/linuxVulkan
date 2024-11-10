@@ -6,6 +6,9 @@
 using namespace std;
 
 void glfwOpenGLTest() {
+    try {
+    cout << "OpenGLTest.start" << endl;
+
     GLFWwindow* window;
 
     /* Initialize the library */
@@ -42,6 +45,12 @@ void glfwOpenGLTest() {
         glfwPollEvents();
     }
 */
+    }catch(const exception& err){
+            cerr << "Error: " << err.what() << endl;
+    }
+    
     glfwTerminate();
+    cout << "OpenGLTest.end" << endl;
+    
     return;
 }

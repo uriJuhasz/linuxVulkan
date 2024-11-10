@@ -6,42 +6,13 @@
 #include <iostream>
 #include <vector>
 #include <exception>
+#include <memory>
 
 using namespace std;
 
-class GLFWWindow {
-    public:
-    GLFWWindow(int width, int height) {
-        glfwInit();
-        
-        createWindow(width,height);
-        
-        createInstance();
-    }
-    
-    ~GLFWWindow(){
-        destroyInstance();
-        destroyWindow();
-        glfwTerminate();        
-    }
-    
-private:
-    void createWindow(int width, int height) {
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-        window = glfwCreateWindow(width, height, "Vulkan", nullptr, nullptr);
-    }
-    void destroyWindow() {
-        glfwDestroyWindow(window);
-        
-    }
-
-    GLFWwindow* window;
-
-    
-private:
-    void createInstance() {
+class VulkanInstance{
+public:
+    VulkanInstance(){
         VkApplicationInfo appInfo{};
         appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
         appInfo.pApplicationName = "Hello Triangle";
@@ -70,6 +41,15 @@ private:
             throw runtime_error("failed to create instance!");
         }
         
+        { // Version
+            uint32_t version;
+            vkEnumerateInstanceVersion(&version);
+            cout << "Vulkan version: " 
+                  << VK_API_VERSION_MAJOR(version) << "."
+                  << VK_API_VERSION_MINOR(version) << "." 
+                  << VK_API_VERSION_PATCH(version) << endl;
+        }
+        
         uint32_t extensionCount = 0;
         vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
         vector<VkExtensionProperties> extensions(extensionCount);
@@ -82,20 +62,62 @@ private:
         }
     }
     
+private:
+    VkInstance instance;
+    
+};
 
-    void destroyInstance() {
+class GLFWWindow {
+public:
+    GLFWWindow(int width, int height) {
+        glfwInit();
         
+        createWindow(width,height);
+        
+        createInstance();
+    }
+    
+    ~GLFWWindow(){
+        instance.reset();
+        destroyWindow();
+        glfwTerminate();        
+    }
+    
+private:
+    void createWindow(int width, int height) {
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+        window = glfwCreateWindow(width, height, "Vulkan", nullptr, nullptr);
+    }
+    
+    void destroyWindow() {
+        glfwDestroyWindow(window);
     }
 
-    VkInstance instance;
+    GLFWwindow* window;
+
+    
+private:
+    void createInstance() {
+        instance = make_unique<VulkanInstance>();
+    }
+    
+    unique_ptr<VulkanInstance> instance;
 };
 
 
 
 void glfwVulkanTest() {
     try {
+        cout << "VulkanTest.start" << endl;
         const auto window = new GLFWWindow(1024, 768);
+        if (window){
+            cout << "Created window" << endl;
+        }
     }catch(const exception& error){
-        cerr << "Error in test vulkan: " << error.what() << endl;
+        cerr << "Error in Vulkan test: " << error.what() << endl;
     }
+    
+    cout << "VulkanTest.end" << endl;
 }
